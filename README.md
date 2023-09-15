@@ -7,4 +7,4 @@ Linux program to display ram info
 
 ## Uninstall
 
-`rm /usr/bin/raminfo`
+`sudo rm /usr/bin/raminfo`
