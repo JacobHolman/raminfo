@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,7 +30,7 @@ jobs:
 
       - name: Build Windows binary
         run: GOOS=windows GOARCH=amd64 go build -v -o raminfo.exe ./
-      
+
       - name: Upload or update 'latest' release
         uses: ncipollo/release-action@v1
         with:
