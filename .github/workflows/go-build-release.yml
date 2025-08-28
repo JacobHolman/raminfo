@@ -27,15 +27,15 @@ jobs:
 
       - name: Build Windows binary
         run: GOOS=windows GOARCH=amd64 go build -v -o raminfo.exe ./
-
+      
       - name: Upload or update 'latest' release
         uses: ncipollo/release-action@v1
         with:
           tag: latest
           name: Latest Release
-          files: |
+          artifacts: |
             raminfo
             raminfo.exe
-          overwrite: true
+          removeArtifacts: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
