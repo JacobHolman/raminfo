@@ -1,20 +1,32 @@
 # raminfo
-Linux program to display ram info
+Linux program to display RAM info; written in Go and now also available on Windows.
 
 <img src="https://raw.githubusercontent.com/JacobHolman/raminfo/main/preview.png">
 
-## Install on Linux
+## Install
 
-`bash <(curl -s https://raw.githubusercontent.com/JacobHolman/raminfo/main/install.sh)`
+**Linux:**
 
-## Install on Windows
+```bash
+bash <(curl -s https://raw.githubusercontent.com/JacobHolman/raminfo/main/install.sh)
+```
 
-`powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr 'https://raw.githubusercontent.com/JacobHolman/raminfo/refs/heads/main/install.ps1' -UseBasicParsing | iex"`
+**Windows (PowerShell):**
 
-## Uninstall on Linux
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr 'https://raw.githubusercontent.com/JacobHolman/raminfo/refs/heads/main/install.ps1' -UseBasicParsing | iex"
+```
 
-`sudo rm /usr/bin/raminfo`
+## Uninstall
 
-## Uninstall on Windows
+**Linux:**
 
-`del "%USERPROFILE%\bin\raminfo.exe"`
+```bash
+sudo rm /usr/bin/raminfo
+```
+
+**Windows:**
+
+```powershell
+del "%USERPROFILE%\bin\raminfo.exe"
+```
