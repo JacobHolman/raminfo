@@ -11,7 +11,7 @@ Linux program to display RAM info; written in Go and now also available on Windo
 bash <(curl -s https://raw.githubusercontent.com/JacobHolman/raminfo/main/install.sh)
 ```
 
-**Windows (PowerShell):**
+**Windows:**
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr 'https://raw.githubusercontent.com/JacobHolman/raminfo/refs/heads/main/install.ps1' -UseBasicParsing | iex"
