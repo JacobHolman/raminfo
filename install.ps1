@@ -10,4 +10,4 @@ if ($currentPath -split ";" -contains $binFolder) {
     Write-Host "Path has been updated"
 }
 $destinationPath = Join-Path -Path $binFolder -ChildPath "raminfo.exe"
-Invoke-WebRequest -Uri 'https://github.com/RealLava/raminfo/raw/main/raminfo.exe' -OutFile $destinationPath
+Invoke-WebRequest -Uri 'https://github.com/JacobHolman/raminfo/releases/download/latest/raminfo.exe' -OutFile $destinationPath
