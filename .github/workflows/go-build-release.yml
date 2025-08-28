@@ -28,21 +28,14 @@ jobs:
       - name: Build Windows binary
         run: GOOS=windows GOARCH=amd64 go build -v -o raminfo.exe ./
 
-      - name: Install GitHub CLI
-        run: sudo apt update && sudo apt install -y gh
-
-      - name: Authenticate GitHub CLI
-        run: gh auth setup-git
-
-      - name: Create or update 'latest' release and upload assets
+      - name: Upload or update 'latest' release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest
+          name: Latest Release
+          files: |
+            raminfo
+            raminfo.exe
+          overwrite: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Check if release exists
-          if ! gh release view latest &>/dev/null; then
-            echo "Release 'latest' does not exist. Creating..."
-            gh release create latest --title "Latest Release" --notes "Automatically updated release" raminfo raminfo.exe
-          else
-            echo "Release 'latest' exists. Updating assets..."
-            gh release upload latest raminfo raminfo.exe --clobber
-          fi
