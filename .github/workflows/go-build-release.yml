@@ -31,7 +31,33 @@ jobs:
       - name: Build Windows binary
         run: GOOS=windows GOARCH=amd64 go build -v -o raminfo.exe ./
 
-      - name: Upload or update 'latest' release
+      - name: Delete existing 'latest' release (if exists)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const tag = 'latest';
+            try {
+              const release = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag
+              });
+              await github.rest.repos.deleteRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.data.id
+              });
+              console.log(`Deleted existing release with tag ${tag}`);
+            } catch (error) {
+              if (error.status === 404) {
+                console.log("No existing release to delete");
+              } else {
+                throw error;
+              }
+            }
+
+      - name: Upload new 'latest' release
         uses: ncipollo/release-action@v1
         with:
           tag: latest
@@ -39,6 +65,3 @@ jobs:
           artifacts: |
             raminfo
             raminfo.exe
-          removeArtifacts: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
