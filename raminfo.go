@@ -15,23 +15,31 @@ const (
 )
 
 func progressBar(percent float64) string {
-	bars := int(percent / 5)
-	color := Cyan
-	if percent > 70 {
-		color = Red
-	} else if percent > 40 {
-		color = Yellow
-	}
+    bars := int(percent / 5)
+    if bars > 20 {
+        bars = 20
+    }
+    if bars < 0 {
+        bars = 0
+    }
 
-	bar := ""
-	for i := 0; i < 20; i++ {
-		if i < bars {
-			bar += color + "█" + Reset
-		} else {
-			bar += White + "░" + Reset
-		}
-	}
-	return bar
+    color := Cyan
+    if percent > 70 {
+        color = Red
+    } else if percent > 40 {
+        color = Yellow
+    }
+
+    bar := ""
+    for i := 0; i < 20; i++ {
+        if i < bars {
+            bar += color + "█"
+        } else {
+            bar += White + "░"
+        }
+    }
+    bar += Reset
+    return bar
 }
 
 func main() {
