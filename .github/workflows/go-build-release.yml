@@ -1,0 +1,45 @@
+name: Go Build & Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Verify dependencies
+        run: go mod tidy && go mod verify
+
+      - name: Build Linux binary
+        run: GOOS=linux GOARCH=amd64 go build -v -o raminfo ./ 
+
+      - name: Build Windows binary
+        run: GOOS=windows GOARCH=amd64 go build -v -o raminfo.exe ./
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            raminfo
+            raminfo.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
